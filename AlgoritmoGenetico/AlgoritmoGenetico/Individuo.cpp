@@ -66,7 +66,7 @@ void Individuo::sorteioDNA()
 	for (int i = 0;i < DNA;i++)
 	{
 		
-		this->dna[i] = (rand() % 10);
+		this->dna[i] = (rand() % DNA);
 		boolean = false;
 		
 		if (i == 0)
@@ -85,7 +85,7 @@ void Individuo::sorteioDNA()
 				}
 				else
 				{
-					this->dna[i] = (rand() % 10);
+					this->dna[i] = (rand() % DNA);
 					boolean = false;
 				}
 

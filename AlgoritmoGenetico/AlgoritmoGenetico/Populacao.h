@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 #pragma once
 class Populacao
 {
@@ -13,6 +15,6 @@ public:
 	void PopulacaoInicial(int);
 	void crossoverCiclico();
 	void roleta();
-	void torneio();
+	list<Individuo> torneio();
 };
 

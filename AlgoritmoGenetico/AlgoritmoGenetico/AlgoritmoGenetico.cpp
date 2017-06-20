@@ -33,6 +33,8 @@ int main()
 		testep.populacao[i].stringDna(wordConc.length());
 		cout << "Numero em string :" << testep.populacao[i].palavraDNA << "\n";
 	}
+
+    testep.torneio();
 	//getchar();
 	return 0;
 }

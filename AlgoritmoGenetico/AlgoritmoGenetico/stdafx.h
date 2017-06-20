@@ -6,13 +6,14 @@
 #pragma once
 
 #include "targetver.h"
-#include "stdafx.h"
+//#include "stdafx.h"
 #include <stdio.h>
 #include <string>
 #include <list>
 #include <string>
 #include <iostream>
 #include <time.h>
+#include <algorithm>
 #include <stdlib.h>
 #include "Individuo.h"
 #include "Populacao.h"
@@ -22,7 +23,9 @@
 #define DNA 10
 #define POPULATION 100
 #define CROSSOVER 80
-#define MUTATION 2
+#define MUTATION 20
+#define RATIOMUTATION 10
+#define TOURNAMENT 3 
 // TODO: reference any additional headers you need in STDAFX.H
 // and not in this file
 using namespace std;

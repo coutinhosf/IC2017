@@ -37,6 +37,6 @@ return retorno;
 
 int sorteioNumero(int tamanhoPalavra)
 {
-	 srand((unsigned)time(NULL)*tamanhoPalavra);
-	 return (rand() % tamanhoPalavra)+ 0;
+	 //srand((unsigned)time(NULL)*tamanhoPalavra);
+	 return (rand() % tamanhoPalavra);
 }

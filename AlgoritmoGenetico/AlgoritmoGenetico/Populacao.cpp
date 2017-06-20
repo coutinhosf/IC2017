@@ -17,6 +17,7 @@ void Populacao::PopulacaoInicial(int tamanhoPalavra)
 	{
 		this->populacao[i].sorteioDNA();
 		this->populacao[i].calculoAptidao(this->palavraUm,this->palavraDois,this->palavraTres,this->palavraConc);
+        
 	//	this->populacao[i].mutacaoIndividuo();
 		//srand((unsigned)time(NULL)*i);
 	}
@@ -30,12 +31,22 @@ void Populacao::roleta()
 {
 }
 
-void Populacao::torneio()
+list<Individuo> Populacao::torneio()
 {
+    list<Individuo> sorteados;
+    Individuo teste;
+    
+    for (int i = 0; i < TOURNAMENT;i++)
+    {
+        sorteados.push_back(this->populacao[sorteioNumero(POPULATION)]);
+    }
 
-	//this->populacao[i];
-
-
+   /* while (sorteados.size() > 2)
+    {
+     
+    }*/
+        
+    return sorteados;
 }
 
 
