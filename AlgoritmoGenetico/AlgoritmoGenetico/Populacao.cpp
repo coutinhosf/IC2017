@@ -31,22 +31,27 @@ void Populacao::roleta()
 {
 }
 
-list<Individuo> Populacao::torneio()
+Individuo Populacao::torneio()
 {
     list<Individuo> sorteados;
-    Individuo teste;
+    Individuo ind;
     
     for (int i = 0; i < TOURNAMENT;i++)
     {
         sorteados.push_back(this->populacao[sorteioNumero(POPULATION)]);
     }
-
-   /* while (sorteados.size() > 2)
+   
+    while (sorteados.size() > 1)
     {
-     
-    }*/
         
-    return sorteados;
+         if (sorteados.begin()->aptidao < sorteados.back().aptidao)
+             sorteados.pop_front();
+         else
+             sorteados.pop_back();
+    }
+        
+    ind = *sorteados.begin();
+    return ind;
 }
 
 

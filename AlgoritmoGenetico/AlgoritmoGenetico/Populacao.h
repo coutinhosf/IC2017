@@ -15,6 +15,6 @@ public:
 	void PopulacaoInicial(int);
 	void crossoverCiclico();
 	void roleta();
-	list<Individuo> torneio();
+	Individuo torneio();
 };
 

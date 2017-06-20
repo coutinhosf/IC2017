@@ -26,13 +26,6 @@ int main()
 
 	cout << "\n";
 	testep.PopulacaoInicial(testep.palavraConc.length());
-	
-	for (int i = 0;i < 100;i++)
-	{
-		//	cout << testep.populacao[i].dna[j]<< "\n";	
-		testep.populacao[i].stringDna(wordConc.length());
-		cout << "Numero em string :" << testep.populacao[i].palavraDNA << "\n";
-	}
 
     testep.torneio();
 	//getchar();
