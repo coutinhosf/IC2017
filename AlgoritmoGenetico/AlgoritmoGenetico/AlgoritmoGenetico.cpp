@@ -28,6 +28,8 @@ int main()
 	testep.PopulacaoInicial(testep.palavraConc.length());
 
     testep.torneio();
+    testep.ordenaPopulacao(testep.populacao, 0, POPULATION);
+    testep.roleta();
 	//getchar();
 	return 0;
 }

@@ -35,8 +35,16 @@ string retornaPalavra(string word)
 return retorno;
 }
 
-int sorteioNumero(int tamanhoPalavra)
+int sorteioNumero(int tetoNumero)
 {
 	 //srand((unsigned)time(NULL)*tamanhoPalavra);
-	 return (rand() % tamanhoPalavra);
+	 return (rand() % tetoNumero);
+}
+
+int buscaBinaria(size_t vet[])
+{
+    
+
+
+    return 0;
 }

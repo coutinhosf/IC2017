@@ -131,3 +131,7 @@ void Individuo::mutacaoIndividuo()
 }
 
 
+bool Individuo::funcaoIndividuoMaior(Individuo um, Individuo dois)
+{
+    return (um.aptidao < dois.aptidao);
+}

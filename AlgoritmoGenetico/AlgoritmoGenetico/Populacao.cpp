@@ -21,14 +21,37 @@ void Populacao::PopulacaoInicial(int tamanhoPalavra)
 	//	this->populacao[i].mutacaoIndividuo();
 		//srand((unsigned)time(NULL)*i);
 	}
+
+    this->totalAptidao= somaAptidaoPopulacao();
 }
 
 void Populacao::crossoverCiclico()
 {
+
 }
 
-void Populacao::roleta()
+Individuo Populacao::roleta()
 {
+    
+    int numSorteado,pivoinicio,pivoFinal, pivoMeio, posIndividuoSorteado=0;
+
+    numSorteado = sorteioNumero(this->totalAptidao);
+    pivoinicio = 0;
+    pivoFinal = POPULATION;
+
+
+    do //search the element of array;
+    {
+        pivoMeio = ((pivoinicio + pivoFinal) / 2);
+        if (this->populacao[pivoMeio].aptidao > numSorteado)
+            pivoFinal = pivoMeio;
+
+        else if (this->populacao[pivoMeio].aptidao <= numSorteado)
+            pivoinicio = pivoMeio;
+
+    } while (((pivoinicio + pivoFinal) / 2) != pivoMeio);
+
+    return this->populacao[pivoMeio];
 }
 
 Individuo Populacao::torneio()
@@ -52,6 +75,47 @@ Individuo Populacao::torneio()
         
     ind = *sorteados.begin();
     return ind;
+}
+
+int Populacao::somaAptidaoPopulacao()
+{
+    int totalAptidao=0;
+
+    for (int i = 0; i < POPULATION ; i++)
+        totalAptidao += this->populacao->aptidao;
+    
+    return totalAptidao;
+
+}
+
+void Populacao::ordenaPopulacao(Individuo vet[],int inicio,int fim)
+{
+    if (fim >= POPULATION)
+        fim--;
+
+    int pivo, i, j, meio;
+    Individuo aux;
+    i = inicio;
+    j = fim;
+
+    meio = (int)((i + j) / 2);
+    pivo = vet[meio].aptidao;
+
+    do {
+        while (vet[i].aptidao < pivo) i = i + 1;
+        while (vet[j].aptidao > pivo) j = j - 1;
+
+        if (i <= j) {
+            aux = vet[i];
+            vet[i] = vet[j];
+            vet[j] = aux;
+            i = i + 1;
+            j = j - 1;
+        }
+    } while (j > i);
+
+    if (inicio < j) ordenaPopulacao(vet, inicio, j);
+    if (i < fim) ordenaPopulacao(vet, i, fim);
 }
 
 

@@ -18,5 +18,6 @@ public:
 	void sorteioDNA();
 	void stringDna(int);
 	void mutacaoIndividuo();
+    bool funcaoIndividuoMaior(Individuo um, Individuo dois);
 };
 

@@ -9,12 +9,15 @@ public:
 	string palavraDois;
 	string palavraTres;
 	string palavraConc;
+    int totalAptidao;
 public:
 	Populacao();
 	~Populacao();
 	void PopulacaoInicial(int);
 	void crossoverCiclico();
-	void roleta();
+	Individuo roleta();
 	Individuo torneio();
+    int somaAptidaoPopulacao();
+    void ordenaPopulacao(Individuo vet[], int numInicial, int numFinal);
 };
 

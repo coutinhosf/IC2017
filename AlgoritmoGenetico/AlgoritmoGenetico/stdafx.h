@@ -19,6 +19,7 @@
 #include "Populacao.h"
 #include <map>
 #include <math.h>
+#include <vector>
 
 #define DNA 10
 #define POPULATION 100
