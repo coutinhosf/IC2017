@@ -1,5 +1,5 @@
 #include "StdAfx.h"
-#include "Individuo.h"
+//#include "Individuo.h"
 
 using namespace std;
 Individuo::Individuo(void)
@@ -96,7 +96,6 @@ void Individuo::sorteioDNA()
 	}	
 }
 
-
 void Individuo::stringDna(int tamPalavra)
 {
 	char buffer[2];
@@ -130,8 +129,25 @@ void Individuo::mutacaoIndividuo()
 	
 }
 
-
 bool Individuo::funcaoIndividuoMaior(Individuo um, Individuo dois)
 {
     return (um.aptidao < dois.aptidao);
+}
+
+int Individuo::procuraValorDna(int valor)
+{
+    int i;
+
+    for (i = 0; i < DNA; i++)
+    {
+        if (valor == this->dna[i])
+            break;
+    }
+    return i;
+}
+
+void Individuo::iniciaIndividuo()
+{
+    for (int i = 0; i < DNA; i++)
+        this->dna[i] = -1;         
 }

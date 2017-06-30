@@ -19,5 +19,7 @@ public:
 	void stringDna(int);
 	void mutacaoIndividuo();
     bool funcaoIndividuoMaior(Individuo um, Individuo dois);
+    int procuraValorDna(int valor);
+    void iniciaIndividuo();
 };
 

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "targetver.h"
+//#include "targetver.h"
 //#include "stdafx.h"
 #include <stdio.h>
 #include <string>
@@ -19,8 +19,6 @@
 #include "Populacao.h"
 #include <map>
 #include <math.h>
-#include <vector>
-
 #define DNA 10
 #define POPULATION 100
 #define CROSSOVER 80

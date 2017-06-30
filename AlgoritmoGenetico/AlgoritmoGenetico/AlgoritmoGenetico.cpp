@@ -30,6 +30,7 @@ int main()
     testep.torneio();
     testep.ordenaPopulacao(testep.populacao, 0, POPULATION);
     testep.roleta();
+    testep.crossoverCiclico(testep.roleta(), testep.roleta());
 	//getchar();
 	return 0;
 }

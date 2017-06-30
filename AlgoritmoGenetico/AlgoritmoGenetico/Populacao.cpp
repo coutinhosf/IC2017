@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "StdAfx.h"
 #include "Populacao.h"
 
 
@@ -25,8 +25,44 @@ void Populacao::PopulacaoInicial(int tamanhoPalavra)
     this->totalAptidao= somaAptidaoPopulacao();
 }
 
-void Populacao::crossoverCiclico()
+void Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
 {
+    int numInicio,numFinal,pos;
+    Individuo filhoUm, filhoDois;
+    std::map<int,int> numCiclo;
+    
+    //coloca -1 no DNA do individuo para iniciar o Crossover...
+    filhoUm.iniciaIndividuo();
+    filhoDois.iniciaIndividuo();
+    
+    //Inicia o Crossover na Posicao 0 no vetor do Pai 1  e pega o proximo valor a achar na mesma posicao do Pai 2... 
+    numCiclo[0] = paiUm.dna[0];
+    numInicio = paiUm.dna[0];
+    numFinal = paiDois.dna[0];
+    
+   //Acha o ciclo dos valores entre os dois Pais...
+    while (numInicio != numFinal)
+    {
+        pos = paiUm.procuraValorDna(numFinal);
+        numCiclo[pos] = numFinal;
+        numFinal = paiDois.dna[pos];
+
+        //copia para os filhos nas mesmas posiçoes dos pais os valores dos vetores deles. Pai 1 -> filho 1, Pai 2 -> filho 2...
+        filhoUm.dna[pos] = numFinal;
+        filhoDois.dna[pos] = paiDois.dna[pos];
+    }
+
+    for (int i = 0; i < DNA; i++)
+    {
+        if (filhoUm.dna[i] == -1)
+        {
+            filhoUm.dna[i] = paiDois.dna[i];
+            filhoDois.dna[i] = paiUm.dna[i];
+        }
+    }
+    populacaoPaiseFilhos.push_back(filhoUm);
+    populacaoPaiseFilhos.push_back(filhoDois);
+
 
 }
 
