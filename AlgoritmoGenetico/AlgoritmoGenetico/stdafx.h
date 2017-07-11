@@ -20,7 +20,6 @@
 #include <map>
 #include <math.h>
 #define DNA 10
-#define POPULATION 100
 #define CROSSOVER 80
 #define MUTATION 20
 #define RATIOMUTATION 10

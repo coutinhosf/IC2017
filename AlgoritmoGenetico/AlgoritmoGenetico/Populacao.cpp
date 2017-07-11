@@ -154,6 +154,17 @@ void Populacao::ordenaPopulacao(Individuo vet[],int inicio,int fim)
     if (i < fim) ordenaPopulacao(vet, i, fim);
 }
 
+void Populacao::reinsercaoPopulacaoSemElitismo()
+{
+    
+    
+
+
+}
+
+void Populacao::reinsercaoPopulacaoComElitismo()
+{
+}
 
 
 
