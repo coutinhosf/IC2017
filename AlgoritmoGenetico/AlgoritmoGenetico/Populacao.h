@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #define POPULATION 100
 #define CROSSOVER 80
+#define ELITISMO 20
 
 
 class Populacao
@@ -12,19 +13,22 @@ public:
 	string palavraDois;
 	string palavraTres;
 	string palavraConc;
+	Individuo Avaliado;
     int totalAptidao;
     int totalPopulacao;
-    list<Individuo> populacaoPaiseFilhos;
 public:
 	Populacao();
 	~Populacao();
 	void PopulacaoInicial(int);
-    void crossoverCiclico(Individuo um, Individuo dois);
+    int crossoverCiclico(Individuo um, Individuo dois);
 	Individuo roleta();
 	Individuo torneio();
     int somaAptidaoPopulacao();
     void ordenaPopulacao(Individuo vet[], int numInicial, int numFinal);
     void reinsercaoPopulacaoSemElitismo();
     void reinsercaoPopulacaoComElitismo();
+	int avaliacaoPopulacao();
+	int temIndividuo(Individuo um, Individuo dois);
+	void zeraTotalAptidao();
 };
 

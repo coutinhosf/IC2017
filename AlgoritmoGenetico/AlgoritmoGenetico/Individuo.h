@@ -1,13 +1,14 @@
 #include "stdafx.h"
 #include <string>
 #include <map>
+#define DNA 10
 
 using namespace std;
 #pragma once
 class Individuo
 {
 public:
-	 int dna[10];
+	 int dna[DNA];
 	 int aptidao;
 	 string palavraDNA;
 

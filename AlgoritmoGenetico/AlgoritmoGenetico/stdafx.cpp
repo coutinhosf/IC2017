@@ -38,7 +38,7 @@ return retorno;
 int sorteioNumero(int tetoNumero)
 {
 	 //srand((unsigned)time(NULL)*tamanhoPalavra);
-	 return (rand() % tetoNumero);
+	 return (rand() % tetoNumero+0);
 }
 
 int buscaBinaria(size_t vet[])

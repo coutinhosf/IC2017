@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "Populacao.h"
 
 
@@ -13,20 +13,21 @@ Populacao::~Populacao()
 
 void Populacao::PopulacaoInicial(int tamanhoPalavra)
 {
+	this->totalPopulacao = 0;
 	for (int i = 0;i < POPULATION;i++)
 	{
 		this->populacao[i].sorteioDNA();
 		this->populacao[i].calculoAptidao(this->palavraUm,this->palavraDois,this->palavraTres,this->palavraConc);
-        
-	//	this->populacao[i].mutacaoIndividuo();
-		//srand((unsigned)time(NULL)*i);
+		this->populacao[i].stringDna(DNA);
+		this->totalPopulacao++;
 	}
 
     this->totalAptidao= somaAptidaoPopulacao();
 }
 
-void Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
-{
+int Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
+{	
+	int somaTotalDna=0;
     int numInicio,numFinal,pos;
     Individuo filhoUm, filhoDois;
     std::map<int,int> numCiclo;
@@ -39,9 +40,9 @@ void Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
     numCiclo[0] = paiUm.dna[0];
     numInicio = paiUm.dna[0];
     numFinal = paiDois.dna[0];
-    
+
    //Acha o ciclo dos valores entre os dois Pais...
-    while (numInicio != numFinal)
+    while (numInicio != numFinal && somaTotalDna < 10)
     {
         pos = paiUm.procuraValorDna(numFinal);
         numCiclo[pos] = numFinal;
@@ -50,6 +51,7 @@ void Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
         //copia para os filhos nas mesmas posiçoes dos pais os valores dos vetores deles. Pai 1 -> filho 1, Pai 2 -> filho 2...
         filhoUm.dna[pos] = numFinal;
         filhoDois.dna[pos] = paiDois.dna[pos];
+		somaTotalDna++; 
     }
 
     for (int i = 0; i < DNA; i++)
@@ -60,34 +62,49 @@ void Populacao::crossoverCiclico(Individuo paiUm, Individuo paiDois)
             filhoDois.dna[i] = paiUm.dna[i];
         }
     }
-    populacaoPaiseFilhos.push_back(filhoUm);
-    populacaoPaiseFilhos.push_back(filhoDois);
 
+  //  populacaoPaiseFilhos.push_back(filhoUm);
+	this->populacao[totalPopulacao] = filhoUm;
+	this->populacao[totalPopulacao].calculoAptidao(this->palavraUm,this->palavraDois,this->palavraTres,this->palavraConc);
+	this->populacao[totalPopulacao].stringDna(DNA);
+	totalPopulacao++;
+
+   // populacaoPaiseFilhos.push_back(filhoDois);
+	this->populacao[totalPopulacao] = filhoDois;
+	this->populacao[totalPopulacao].calculoAptidao(this->palavraUm,this->palavraDois,this->palavraTres,this->palavraConc);
+	this->populacao[totalPopulacao].stringDna(DNA);
+	totalPopulacao++;
+
+	return Populacao::temIndividuo(this->populacao[totalPopulacao-2], this->populacao[totalPopulacao-1]);
 
 }
 
 Individuo Populacao::roleta()
 {
     
-    int numSorteado,pivoinicio,pivoFinal, pivoMeio, posIndividuoSorteado=0;
+    int numSorteado,somatorio=0,pivoinicio,pivoFinal, pivoMeio, posIndividuoSorteado=0;
 
     numSorteado = sorteioNumero(this->totalAptidao);
     pivoinicio = 0;
     pivoFinal = POPULATION;
 
+	//ordena populaçao para a Roleta.
+	if(this->totalPopulacao < 101)
+		ordenaPopulacao(this->populacao,0,POPULATION);
+	
+	for(int i=0; i < POPULATION;i++)
+	{
+		somatorio += this->populacao[i].aptidao;
 
-    do //search the element of array;
-    {
-        pivoMeio = ((pivoinicio + pivoFinal) / 2);
-        if (this->populacao[pivoMeio].aptidao > numSorteado)
-            pivoFinal = pivoMeio;
+		if(somatorio > numSorteado)
+		{
+			posIndividuoSorteado = i;
+			break;
+		}
 
-        else if (this->populacao[pivoMeio].aptidao <= numSorteado)
-            pivoinicio = pivoMeio;
+	}
 
-    } while (((pivoinicio + pivoFinal) / 2) != pivoMeio);
-
-    return this->populacao[pivoMeio];
+    return this->populacao[posIndividuoSorteado];
 }
 
 Individuo Populacao::torneio()
@@ -115,13 +132,15 @@ Individuo Populacao::torneio()
 
 int Populacao::somaAptidaoPopulacao()
 {
+	zeraTotalAptidao();
+
     int totalAptidao=0;
 
     for (int i = 0; i < POPULATION ; i++)
-        totalAptidao += this->populacao->aptidao;
-    
+	{
+		totalAptidao += this->populacao[i].aptidao;
+	}
     return totalAptidao;
-
 }
 
 void Populacao::ordenaPopulacao(Individuo vet[],int inicio,int fim)
@@ -156,15 +175,48 @@ void Populacao::ordenaPopulacao(Individuo vet[],int inicio,int fim)
 
 void Populacao::reinsercaoPopulacaoSemElitismo()
 {
-    
-    
-
-
+	this->ordenaPopulacao(this->populacao, 0, this->totalPopulacao);
+	this->totalPopulacao= POPULATION;
 }
 
 void Populacao::reinsercaoPopulacaoComElitismo()
 {
+	this->ordenaPopulacao(this->populacao,ELITISMO,this->totalPopulacao);
+	this->totalPopulacao= POPULATION;
 }
 
+int Populacao::avaliacaoPopulacao()
+{
+	int finded=0;
+	for(int i = 0; i<POPULATION; i++)
+	{
+		if(this->populacao[i].aptidao == 0)
+		{
+			this->Avaliado = this->populacao[i];
+			finded=1;
+			break;
+		}				
+	}
 
+	if(finded == 0)
+		return 0;
+	else
+		return 1;
+}
 
+int Populacao::temIndividuo(Individuo um, Individuo dois)
+{
+	for(int i = 0; i<POPULATION;i++)
+	{
+		if(this->populacao[i].palavraDNA.compare(um.palavraDNA) == 0 || this->populacao[i].palavraDNA.compare(dois.palavraDNA) == 0)
+			return 1;
+	}
+	
+	return 0;
+
+}
+
+void Populacao::zeraTotalAptidao()
+{
+	this->totalAptidao=0;
+}

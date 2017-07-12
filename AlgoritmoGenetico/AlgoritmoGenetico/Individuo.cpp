@@ -28,7 +28,7 @@ void Individuo::calculoAptidao(string palavraUm, string palavraDois, string pala
 
 	for(int i =0 ; i < palavraUm.length();i++)
 	{
-		valorPalavraUm += this->dna[mapaPalavra[palavraUm[i]]] * pow(10,elevadoPalavra); 	
+		valorPalavraUm += this->dna[mapaPalavra[palavraUm[i]]] * pow(10.0,elevadoPalavra); 	
 		elevadoPalavra--;
 	}
 
@@ -36,7 +36,7 @@ void Individuo::calculoAptidao(string palavraUm, string palavraDois, string pala
 
 	for (int i = 0; i < palavraDois.length();i++)
 	{
-		valorPalavraDois += this->dna[mapaPalavra[palavraDois[i]]] * pow(10, elevadoPalavra);
+		valorPalavraDois += this->dna[mapaPalavra[palavraDois[i]]] * pow(10.0, elevadoPalavra);
 		elevadoPalavra--;
 	}
 
@@ -44,7 +44,7 @@ void Individuo::calculoAptidao(string palavraUm, string palavraDois, string pala
 
 	for (int i = 0; i < palavraTres.length();i++)
 	{
-		valorPalavraTres += this->dna[mapaPalavra[palavraTres[i]]] * pow(10, elevadoPalavra);
+		valorPalavraTres += this->dna[mapaPalavra[palavraTres[i]]] * pow(10.0, elevadoPalavra);
 		elevadoPalavra--;
 	}
 
@@ -99,6 +99,7 @@ void Individuo::sorteioDNA()
 void Individuo::stringDna(int tamPalavra)
 {
 	char buffer[2];
+	this->palavraDNA = "";
 	for (int i = 0; i < tamPalavra;i++)
 	{
 		if (this->dna[i] != -1)
